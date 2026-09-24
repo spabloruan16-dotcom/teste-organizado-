@@ -1,0 +1,72 @@
+{
+  "products": [
+    {
+      "id": "p1",
+      "ownerId": "test-merchant",
+      "ownerName": "Loja Moda Center",
+      "name": "Blusa",
+      "description": "",
+      "price": 100,
+      "category": "Feminino",
+      "segments": [],
+      "image": null,
+      "quantity": 8,
+      "variations": [],
+      "discount": 0,
+      "wholesale": null,
+      "salesCount": 2,
+      "ratings": [
+        {
+          "value": 5,
+          "comment": "Ótima"
+        }
+      ],
+      "createdAt": 1788926668857
+    }
+  ],
+  "stores": {
+    "test-merchant": {
+      "name": "Loja Azul",
+      "segments": [
+        "masculino"
+      ],
+      "image": null,
+      "location": {
+        "sector": "Azul",
+        "street": "F",
+        "box": "347"
+      },
+      "createdAt": 1788927412174
+    }
+  },
+  "orders": [],
+  "chats": [],
+  "presence": {
+    "test-merchant": {
+      "status": "online",
+      "lastSeen": 1788927614444
+    },
+    "test-client": {
+      "status": "offline",
+      "lastSeen": 1788927304678
+    },
+    "style-client": {
+      "status": "online",
+      "lastSeen": 1788973536532
+    },
+    "aac07277-5842-4586-8141-9b1840ef01ba": {
+      "status": "online",
+      "lastSeen": 1789659563625
+    }
+  },
+  "users": [
+    {
+      "id": "aac07277-5842-4586-8141-9b1840ef01ba",
+      "name": "Renato",
+      "email": "r@e.com",
+      "password": "123456",
+      "profile": "cliente",
+      "avatar": null
+    }
+  ]
+}
