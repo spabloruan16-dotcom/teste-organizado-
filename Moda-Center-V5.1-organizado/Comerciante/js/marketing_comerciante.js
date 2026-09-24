@@ -544,18 +544,42 @@ criarCartaoBtn?.addEventListener("click", async () => {
 // =========================================================
 // CARDS DE FERRAMENTAS
 // =========================================================
+// =========================================================
+// CARD "MODA CENTER LIVE E VÍDEO"
+// =========================================================
+// Este card usa a tela completa que já existe em:
+// Comerciante/pages/modacenterliveandvideo.html
+// Não recriamos a tela aqui e não mostramos "em desenvolvimento".
+document.getElementById("modacenterLiveVideoCard")?.addEventListener("click", () => {
+	const card = document.getElementById("modacenterLiveVideoCard");
+
+	card?.animate([
+		{ transform: "scale(1)" },
+		{ transform: "scale(.97)" },
+		{ transform: "scale(1)" }
+	], { duration: 180 });
+
+	window.location.href = "modacenterliveandvideo.html";
+});
+
+// =========================================================
+// DEMAIS CARDS DE FERRAMENTAS
+// =========================================================
 document.querySelectorAll(".marketing-card").forEach(card => {
 	card.addEventListener("click", () => {
+		// O card Live e Vídeo possui navegação própria acima.
+		if (card.id === "modacenterLiveVideoCard") return;
+
 		// ----------(incio) modificado por Marcos Inclusão do card Meus Destaques na animação dos cards---------
 		if (card.id === "promotionsCard" || card.id === "flashOffersCard" || card.id === "highlightsCard" || card.id === "bulkOffersCard" || card.id === "fidelidadeCard") return;
-// ----------(final) modificado por Marcos Inclusão do card Meus Destaques na animação dos cards---------
+		// ----------(final) modificado por Marcos Inclusão do card Meus Destaques na animação dos cards---------
+
 		card.animate([
 			{ transform: "scale(1)" },
 			{ transform: "scale(.97)" },
 			{ transform: "scale(1)" }
 		], { duration: 180 });
 
-		// Usa o texto do título do card na mensagem do toast.
 		const title = card.querySelector("strong")?.textContent || "Esta ferramenta";
 		showToast(`${title}: recurso em desenvolvimento.`);
 	});
