@@ -1,29 +1,5 @@
 {
-  "products": [
-    {
-      "id": "p1",
-      "ownerId": "test-merchant",
-      "ownerName": "Loja Moda Center",
-      "name": "Blusa",
-      "description": "",
-      "price": 100,
-      "category": "Feminino",
-      "segments": [],
-      "image": null,
-      "quantity": 8,
-      "variations": [],
-      "discount": 0,
-      "wholesale": null,
-      "salesCount": 2,
-      "ratings": [
-        {
-          "value": 5,
-          "comment": "Ótima"
-        }
-      ],
-      "createdAt": 1788926668857
-    }
-  ],
+  "products": [],
   "stores": {
     "test-merchant": {
       "name": "Loja Azul",

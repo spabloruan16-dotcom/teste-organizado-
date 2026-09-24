@@ -15,8 +15,11 @@ const MIME_TYPES = { ".html": "text/html; charset=utf-8", ".js": "text/javascrip
 function readDatabase() {
     try {
     const database = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
-    return { products: Array.isArray(database.products) ? database.products : [], stores: database.stores || {}, orders: Array.isArray(database.orders) ? database.orders : [], chats: Array.isArray(database.chats) ? database.chats : [], presence: database.presence || {}, users: Array.isArray(database.users) ? database.users : [] ,loyaltyCards: Array.isArray(database.loyaltyCards)
-    ? database.loyaltyCards : [], loyaltyPoints: Array.isArray(database.loyaltyPoints) ? database.loyaltyPoints : [], loyaltyRedemptions: Array.isArray(database.loyaltyRedemptions) ? database.loyaltyRedemptions : []};
+    const products = (Array.isArray(database.products) ? database.products : []).filter(product => {
+        // Remove o produto de demonstração legado das versões anteriores.
+        return !(String(product?.id || "") === "p1" && String(product?.ownerId || "") === "test-merchant");
+    });
+    return { products, stores: database.stores || {}, orders: Array.isArray(database.orders) ? database.orders : [], chats: Array.isArray(database.chats) ? database.chats : [], presence: database.presence || {}, users: Array.isArray(database.users) ? database.users : [] ,loyaltyCards: Array.isArray(database.loyaltyCards) ? database.loyaltyCards : [], loyaltyPoints: Array.isArray(database.loyaltyPoints) ? database.loyaltyPoints : [], loyaltyRedemptions: Array.isArray(database.loyaltyRedemptions) ? database.loyaltyRedemptions : []};
     } catch (error) {
     }
     return { products: [], stores: {}, orders: [], chats: [], presence: {}, users: [] , loyaltyCards: [], loyaltyPoints: [], loyaltyRedemptions: []};
@@ -144,7 +147,7 @@ function normalizeProduct(input) {
     const variations = Array.isArray(input.variations) ? input.variations.map(variation => ({ id: String(variation.id || crypto.randomUUID()), color: String(variation.color || "").trim(), size: String(variation.size || "").trim(), quantity: Math.max(0, Number(variation.quantity || 0)) })).filter(variation => variation.color && variation.size) : [];
     const quantity = variations.length ? variations.reduce((total, variation) => total + variation.quantity, 0) : Math.max(0, Number(input.quantity || 0));
    // ----------(incio) modificado por Marcos Persistência e normalização do estado de destaque do produto---------
-    return { id: String(input.id || crypto.randomUUID()), ownerId: String(input.ownerId), ownerName: String(input.ownerName || "Loja Moda Center"), name, description: String(input.description || ""), price, category: String(input.category || "Produto"), segments: Array.isArray(input.segments) ? input.segments : [], image: input.image || null, quantity, variations, discount: Math.min(100, Math.max(0, Number(input.discount || 0))), wholesale, salesCount: Math.max(0, Number(input.salesCount || 0)), ratings: Array.isArray(input.ratings) ? input.ratings : [], highlighted: Boolean(input.highlighted), campaignId: input.campaignId || null, flashOffer: input.flashOffer || null, createdAt: input.createdAt || Date.now() };
+    return { id: String(input.id || crypto.randomUUID()), ownerId: String(input.ownerId), ownerName: String(input.ownerName || "Loja Moda Center"), name, description: String(input.description || ""), price, category: String(input.category || "Produto"), segments: Array.isArray(input.segments) ? input.segments : [], image: input.image || null, quantity, variations, discount: Math.min(100, Math.max(0, Number(input.discount || 0))), wholesale, salesCount: Math.max(0, Number(input.salesCount || 0)), ratings: Array.isArray(input.ratings) ? input.ratings : [], highlighted: Boolean(input.highlighted), published: input.published !== false, campaignId: input.campaignId || null, flashOffer: input.flashOffer || null, createdAt: input.createdAt || Date.now() };
 // ----------(final) modificado por Marcos Persistência e normalização do estado de destaque do produto---------}
 }
 

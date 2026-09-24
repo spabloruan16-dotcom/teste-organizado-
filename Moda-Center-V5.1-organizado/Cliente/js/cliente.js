@@ -132,13 +132,20 @@ function applyBulkPromotions(products) {
     });
 }
 
+function isRealPublishedProduct(product) {
+    if (!product || !String(product.name || "").trim()) return false;
+    // Remove o produto de demonstração antigo que podia reaparecer pelo localStorage.
+    if (String(product.id || "") === "p1" && String(product.ownerId || "") === "test-merchant") return false;
+    return true;
+}
+
 function readProducts() {
     let products;
     if (catalogProducts.length) {
-        products = catalogProducts;
+        products = catalogProducts.filter(isRealPublishedProduct);
     } else {
         const allProducts = JSON.parse(localStorage.getItem(PRODUCTS_KEY) || "{}");
-        products = Object.entries(allProducts).flatMap(([ownerId, list]) => (Array.isArray(list) ? list : []).map(product => ({ ...product, ownerId })));
+        products = Object.entries(allProducts).flatMap(([ownerId, list]) => (Array.isArray(list) ? list : []).map(product => ({ ...product, ownerId }))).filter(isRealPublishedProduct);
     }
     return applyBulkPromotions(products);
 }

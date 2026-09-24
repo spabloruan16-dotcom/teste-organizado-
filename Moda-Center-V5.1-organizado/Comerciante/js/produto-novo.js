@@ -205,6 +205,7 @@ async function saveProduct(event) {
 		segments: segments,
 		image: imagePreview.hidden ? null : imagePreview.src,
 		createdAt: Date.now(),
+		published: true,
 		wholesale: wholesaleEnabled?.checked ? { minQuantity: Number(data.get("wholesaleMinQuantity") || 3), price: Number(data.get("wholesalePrice") || 0) } : null
 	};
 
